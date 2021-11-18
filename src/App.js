@@ -22,7 +22,7 @@ function App() {
     formData.append('image', image, fileName);
     const { data } = await axios({
       method: 'post',
-      url: '/v1/persons/search/',
+      url: 'https://api.neuroio.com/v1/persons/search/',
       headers: {
         Authorization: `Token ${process.env.REACT_APP_NEUROIO_TOKEN}`,
       },
