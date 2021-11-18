@@ -46,9 +46,8 @@ function App() {
         )}
         <img
           src={imageURL}
+          className="ImagePreview"
           alt="Загрузите фото сотрудника"
-          height={550}
-          width={415}
         />
       </div>
 
