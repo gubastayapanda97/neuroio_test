@@ -37,6 +37,9 @@ function App() {
     fetchNeuroio();
   };
 
+  console.log('NEUROIO_TOKEN', process.env.NEUROIO_TOKEN);
+  console.log('REACT_APP_NEUROIO_TOKEN', process.env.REACT_APP_NEUROIO_TOKEN);
+
   return (
     <div className="App">
       <div className="HalfWidth">
