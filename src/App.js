@@ -44,7 +44,12 @@ function App() {
             Отправить фото в neuroio
           </button>
         )}
-        <img src={imageURL} alt="Загрузите фото сотрудника" />
+        <img
+          src={imageURL}
+          alt="Загрузите фото сотрудника"
+          height={550}
+          width={415}
+        />
       </div>
 
       <div className="HalfWidth">
