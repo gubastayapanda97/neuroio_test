@@ -24,7 +24,10 @@ function App() {
   const fetchNeuroio = async () => {
     const response = await axios({
       method: 'post',
-      url: 'https://api.neuroio.com/v1/persons/search/',
+      url: 'https://cors-anywhere.herokuapp.com/https://api.neuroio.com/v1/persons/search/',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       data: {
         image,
       },
@@ -37,8 +40,7 @@ function App() {
     fetchNeuroio();
   };
 
-  console.log('NEUROIO_TOKEN', process.env.NEUROIO_TOKEN);
-  console.log('REACT_APP_NEUROIO_TOKEN', process.env.REACT_APP_NEUROIO_TOKEN);
+  // console.log('REACT_APP_NEUROIO_TOKEN', process.env.REACT_APP_NEUROIO_TOKEN);
 
   return (
     <div className="App">
