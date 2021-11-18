@@ -4,54 +4,47 @@ import axios from 'axios';
 
 function App() {
   const [image, setImage] = useState(null);
-  const [neuroioData, setNeuroioData] = useState({
-    result: 'exact',
-    pid: '1273ee8b-896f-4721-8f07-bfbe06cd11af',
-    age: null,
-    sex: null,
-    mood: null,
-    confidence: 97.89,
-    pan: 4.98,
-    tilt: 2.96,
-  });
+  const [imageURL, setImageUSRL] = useState(null);
+  const [fileName, setFileName] = useState('');
+  const [neuroioData, setNeuroioData] = useState(null);
 
   const onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
+      const file = event.target.files[0];
+      setImage(file);
+      setFileName(file.name);
+      setImageUSRL(URL.createObjectURL(event.target.files[0]));
     }
   };
 
   const fetchNeuroio = async () => {
-    const response = await axios({
+    const formData = new FormData();
+    formData.append('image', image, fileName);
+    const { data } = await axios({
       method: 'post',
       url: 'https://cors-anywhere.herokuapp.com/https://api.neuroio.com/v1/persons/search/',
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        Authorization: `Token ${process.env.REACT_APP_NEUROIO_TOKEN}`,
       },
-      data: {
-        image,
-      },
+      data: formData,
     });
-    console.log(response);
+    setNeuroioData(data);
   };
 
   const onButtonClick = () => {
-    console.log('onButtonClick');
     fetchNeuroio();
   };
-
-  // console.log('REACT_APP_NEUROIO_TOKEN', process.env.REACT_APP_NEUROIO_TOKEN);
 
   return (
     <div className="App">
       <div className="HalfWidth">
         <input type="file" onChange={onImageChange} className="filetype" />
-        {image && (
+        {imageURL && (
           <button className="ImageSendBtn" onClick={onButtonClick}>
             Отправить фото в neuroio
           </button>
         )}
-        <img src={image} alt="Загрузите фото сотрудника" />
+        <img src={imageURL} alt="Загрузите фото сотрудника" />
       </div>
 
       <div className="HalfWidth">
